@@ -1,7 +1,7 @@
 [README.md](https://github.com/user-attachments/files/23024340/README.md)
-# The Lind Edit — GitHub Pages Repository
+# THE LIND EDIT — GitHub Pages Repository
 
-**Curated simplicity where vintage sophistication meets modern sustainability**
+**Curated simplicity | where vintage sophistication meets modern sustainability**
 
 This repository hosts *The Lind Edit* — a minimalist, editorial-inspired gallery site featuring sustainable vintage pieces.
 
