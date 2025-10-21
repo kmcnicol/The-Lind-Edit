@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lind Edit</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  background-color: #f8f7f2;
+  color: #3a3a3a;
+}
+header {
+  background-color: #e7e3dc;
+  padding: 2rem;
+  text-align: center;
+}
+header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  color: #4b4a3f;
+}
+header p {
+  font-style: italic;
+  margin-top: 0.5rem;
+  color: #7a766f;
+}
+nav {
+  background-color: #a4a081;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+section {
+  padding: 3rem 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+.item {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  text-align: center;
+  padding-bottom: 1rem;
+}
+.item img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+.item h3 {
+  margin: 1rem 0 0.5rem;
+}
+.item p {
+  margin: 0.5rem 0;
+  color: #666;
+}
+button {
+  background-color: #a4a081;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #7e7b62;
+}
+footer {
+  background-color: #d9d5ca;
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #4b4a3f;
+  font-size: 0.9rem;
+}
+.cart {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #a4a081;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.cart-details {
+  display: none;
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  width: 250px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.cart-details.active {
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>The Lind Edit</h1>
+  <p>Curated simplicity where vintage sophistication meets modern sustainability</p>
+</header>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#shop">Shop</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<div class="cart" onclick="toggleCart()">🛍 Cart (<span id="cart-count">0</span>)</div>
+<div class="cart-details" id="cart-details">
+  <h4>Your Cart</h4>
+  <ul id="cart-items"></ul>
+  <button onclick="checkout()">Checkout</button>
+</div>
+
+<section id="home">
+  <h2>Welcome to The Lind Edit</h2>
+  <p>Explore a collection where timeless vintage pieces are reimagined for the modern minimalist. Every item is handpicked for quality, style, and sustainability.</p>
+</section>
+
+<section id="shop">
+  <h2>Shop Collection</h2>
+  <div class="gallery">
+    <div class="item">
+      <img src="https://source.unsplash.com/600x400/?vintage,chair" alt="Vintage Chair">
+      <h3>Mid-Century Chair</h3>
+      <p>$120</p>
+      <button onclick="addToCart('Mid-Century Chair', 120)">Add to Cart</button>
+    </div>
+    <div class="item">
+      <img src="https://source.unsplash.com/600x400/?vintage,vase" alt="Vintage Vase">
+      <h3>Stoneware Vase</h3>
+      <p>$45</p>
+      <button onclick="addToCart('Stoneware Vase', 45)">Add to Cart</button>
+    </div>
+    <div class="item">
+      <img src="https://source.unsplash.com/600x400/?vintage,table" alt="Vintage Table">
+      <h3>Wood Accent Table</h3>
+      <p>$180</p>
+      <button onclick="addToCart('Wood Accent Table', 180)">Add to Cart</button>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <h2>About</h2>
+  <p><strong>The Lind Edit</strong> is where curated simplicity meets sustainability. Each piece tells a story — blending the charm of the past with the aesthetics of modern design. Our focus is on timeless craftsmanship, natural textures, and conscious curation.</p>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Follow us on social media or reach out directly:</p>
+  <ul>
+    <li><a href="#">LinkedIn</a></li>
+    <li><a href="#">Instagram</a></li>
+    <li><a href="#">Facebook</a></li>
+    <li><a href="#">Twitter</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p>© 2025 The Lind Edit — Curated vintage for the modern minimalist.</p>
+</footer>
+
+<script>
+let cart = [];
+
+function addToCart(name, price) {
+  cart.push({ name, price });
+  document.getElementById('cart-count').innerText = cart.length;
+  updateCartItems();
+}
+
+function toggleCart() {
+  document.getElementById('cart-details').classList.toggle('active');
+}
+
+function updateCartItems() {
+  const list = document.getElementById('cart-items');
+  list.innerHTML = '';
+  cart.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = `${item.name} - $${item.price}`;
+    list.appendChild(li);
+  });
+}
+
+function checkout() {
+  alert('Checkout feature coming soon — thank you for shopping The Lind Edit!');
+  cart = [];
+  document.getElementById('cart-count').innerText = 0;
+  updateCartItems();
+}
+</script>
+
+</body>
+</html>
